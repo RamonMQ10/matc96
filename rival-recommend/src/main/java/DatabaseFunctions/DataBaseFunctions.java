@@ -14,7 +14,7 @@ public class DataBaseFunctions {
 	public Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
-					"jdbc:mysql://localhost/movies_movielens?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "kyugin");
+					"jdbc:mysql://localhost/movies_movielens?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
