@@ -41,25 +41,33 @@ public final class RecommenderIO {
 	private RecommenderIO() {
 	}
 
+	/*
+	 * Mostra o top 10 filmes recomendados para um determindado usuário;
+	 * Salva a recomendação no banco de dados;
+	 */
 	public static void writeDataSql(final long user, final List<Preference<Long, Long>> recommendations,
 			final String path, final String fileName, final boolean append, final TemporalDataModelIF<Long, Long> model,
 			long userSelected) {
+		
 		DataBaseFunctions dataBaseFunctions = new DataBaseFunctions();
+		
 		int ranking = 10;
 		int i = 0;
+		
+		// percorre a lista de recomendação para mostrar o usuario selicionado, limitando ao ranking escolhido  
 		for (Preference<Long, Long> recItem : recommendations) {
 			if (i < ranking) {
 				if (user == userSelected) {
 					int posicao = i + 1;
-					Movie movie = dataBaseFunctions.getMovie(recItem.getItem());
-					if (movie != null) {
+					Movie movie = dataBaseFunctions.getMovie(recItem.getItem()); // consulta o filme recomendado no bancode dados
+					if (movie != null) { 
 						System.out.println("User "+user+" -> "+posicao + "º: Filme: " + movie.getTitle() + " Score: " + recItem.getScore()
 								+ " Descrição: " + movie.getDescription());
 					} else {
-						System.out.println(
+						System.out.println( 
 								"User "+user+" -> "+posicao + "º: idFilme: " + recItem.getItem() + " score: " + recItem.getScore());
 					}
-					dataBaseFunctions.insertRecommendation(user, recItem.getItem(), recItem.getScore());
+					dataBaseFunctions.insertRecommendation(user, recItem.getItem(), recItem.getScore()); // salva a recomendação no banco de dados
 					i++;
 				}
 			}

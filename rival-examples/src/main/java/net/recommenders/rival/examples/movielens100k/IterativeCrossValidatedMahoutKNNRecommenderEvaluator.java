@@ -178,7 +178,8 @@ public final class IterativeCrossValidatedMahoutKNNRecommenderEvaluator {
 					for (RecommendedItem ri : items) {
 						prefs.add(new RecommenderIO.Preference<>(u, ri.getItemID(), ri.getValue()));
 					}
-					//
+					
+					
 					if(i==nFolds-1){
 					RecommenderIO.writeDataSql(u, prefs, outPath, fileName, !createFile, null,6);
 					createFile = false;
